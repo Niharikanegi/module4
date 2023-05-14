@@ -1,0 +1,93 @@
+<html>
+    <head>
+      
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+                    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <title>Module 4 Lab</title>
+        <style>
+            .headerRowStyle
+            {
+                background-color: cornflowerblue;
+            }
+            .evenRed
+            {
+                background-color: red;
+            }
+            .oddBlue
+            {
+                background-color: green;
+            }
+        </style>
+    </head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+    </script>
+        <div class="container-fluid">
+            <h1>Hello world</h1>
+                <table class="">
+                    <thead class="headerRowStyle">
+                        <tr>
+                            <td>Name</td>
+                            <td>Username</td>
+                            <td>email</td>
+                            <td>City</td>
+                            <td>Zip Code</td>
+                            <td>Title Details from different JSON File</td>
+                        </tr>
+                    </thead>
+                    <tbody id ="postList"></tbody>
+                </table>
+        </div>
+</body>
+    <script>
+        fetch('https://jsonplaceholder.typicode.com/users')  
+        .then((response) => response.json())
+        .then((json) =>
+        {
+            fetch('https://jsonplaceholder.typicode.com/posts') 
+            .then((response2) => response2.json())
+            .then((json2) =>
+            {
+                for (i = 0; i <json.length; i++)
+                {
+                    let tr = document.createElement("tr") 
+                    let tdName = document.createElement("td")  
+                    tdName.innerHTML += json[i].name.toUpperCase() 
+                    tr.appendChild(tdName) 
+                    let tdUserName = document.createElement("td")
+                    tdUserName.innerHTML += json[i].username
+                    tr.appendChild(tdUserName)
+                    let tdEmail = document.createElement("td")
+                    tdEmail.innerHTML += json[i].email
+                    tr.appendChild(tdEmail)
+                    let tdCity = document.createElement("td")
+                    tdCity.innerHTML += json[i].address.city.toUpperCase()
+                    tr.appendChild(tdCity)
+                    let tdZipCode = document.createElement("td")
+                    tdZipCode.innerHTML += json[i].address.zipcode
+                    tr.appendChild(tdZipCode)
+                    let tdJson2Title = document.createElement("td")
+                    for (j = 0; j <json2.length; j++){ 
+                    if (json[i].id == json2[j].userId)
+                    {
+                        tdJson2Title.innerHTML += json2[j].title + "<br>"
+                        tr.appendChild(tdJson2Title)
+                    }}
+                    document.getElementById('postList').appendChild(tr) 
+                    if (i % 2 === 0) 
+                    {
+                        tr.classList.add('evenRed')
+                    }
+                    else
+                    {
+                        tr.classList.add('oddBlue')
+                    }
+                }
+            });
+        });
+    </script>

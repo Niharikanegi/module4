@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="card-list"></div>
+</body>
+</html>
+<template id="card-template">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title"></div>
+            <div class="card-text"></div>
+        </div>
+    </div>
+</template>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #E3F2FD;
+    }
+    .card {
+        padding: 10px;
+    }
+    .card-title {
+        font-weight: 600;
+        font-size: 3em;
+        padding: 0 0 10px 0;
+    }
+    .card-description {
+        font-weight: 400;
+        font-size: 2em
+    }
+</style>
+<script>
+    const data =[{name:"bob", age:23},{name:"alice",age:39}];
+    function addCard(name, age) {
+    const template = document.getElementById("card-template").content.cloneNode(true);
+    template.querySelector('.card-title').innerText = name;
+    template.querySelector('.card-text').innerText = age;
+    document.querySelector('#card-list').appendChild(template);
+    }
+    if ('content' in document.createElement('template')) {
+        addCard(data[0].name, data[0].age);
+        addCard(data[1].name, data[1].age)
+    }
+</script>

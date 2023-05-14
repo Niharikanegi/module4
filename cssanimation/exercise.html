@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Square Slider</title>
+	<style>
+		#slider {
+			position: relative;
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			animation-name: slide;
+			animation-duration: 2s;
+			animation-iteration-count: infinite;
+			animation-direction: alternate;
+		}
+		@keyframes slide {
+			from {
+				top: 0;
+				background-color: red;
+			}
+			to {
+				top: calc(100vh - 100px);
+				background-color: blue;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="slider"></div>
+
+	<script>
+		window.addEventListener("load", function() {
+			const slider = document.getElementById("slider");
+			const initialPosition = slider.offsetTop;
+			window.addEventListener("scroll", function() {
+				slider.style.top = initialPosition - window.pageYOffset + "px";
+			});
+		});
+	</script>
+</body>
+</html>
